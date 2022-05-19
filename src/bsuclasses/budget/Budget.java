@@ -31,6 +31,19 @@ public class Budget {
     budget.copyTo(this);
   }
 
+  // GETTERS /////
+  public double getStartingFunds() {
+    return this.startingFunds;
+  }
+
+  public double getRemainingFunds() {
+    return this.remainingFunds;
+  }
+
+  public double getUnallocatedFunds() {
+    return this.unallocatedFunds;
+  }
+
   // OTHER /////
   public void copyTo(Budget budget) {
     budget.startingFunds = this.startingFunds;
