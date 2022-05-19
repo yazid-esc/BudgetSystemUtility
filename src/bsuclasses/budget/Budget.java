@@ -24,6 +24,7 @@ public class Budget {
   // CONSTRUCTORS /////
   public Budget(double startingFunds) {
     this.startingFunds = startingFunds;
+    this.yearMonth = YearMonth.now();
   }
 
   public Budget(Budget budget) {
