@@ -22,29 +22,50 @@ public class Budget {
   private YearMonth yearMonth;
 
   // CONSTRUCTORS /////
+
+  /**
+   @param startingFunds the startingFunds to be set
+  */
   public Budget(double startingFunds) {
     this.startingFunds = startingFunds;
     this.yearMonth = YearMonth.now();
   }
-
+  
+  /**
+   @param budget the {@code Budget} object whose contents/state will be copied into
+                 {@code this} budget's contents/state
+  */
   public Budget(Budget budget) {
     budget.copyTo(this);
   }
 
   // GETTERS /////
+  /**
+   @return the starting funds of this budget
+  */
   public double getStartingFunds() {
     return this.startingFunds;
   }
 
+  /**
+   @return the remaining funds of this budget
+  */
   public double getRemainingFunds() {
     return this.remainingFunds;
   }
 
+  /**
+   @return the unallocated funds of this budget
+  */
   public double getUnallocatedFunds() {
     return this.unallocatedFunds;
   }
 
   // OTHER /////
+  /**
+   @param budget the {@code Budget} object who will have {@code this} budget's
+                 state copied into it.
+  */
   public void copyTo(Budget budget) {
     budget.startingFunds = this.startingFunds;
     budget.remainingFunds = this.remainingFunds;
