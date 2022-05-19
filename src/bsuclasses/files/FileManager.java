@@ -1,6 +1,8 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 
 
@@ -65,7 +67,7 @@ public class FileManager {
    @throws IOExeption
            when something goes wrong creating necessary program files
   */
-  public void verifyFileSystem() throws IOException{
+  public void verifyFileSystem() throws IOException {
     // First verify directories
     if(!((this.directoryBSUDatabase).exists()))
       (this.directoryBSUDatabase).mkdir();
@@ -79,6 +81,44 @@ public class FileManager {
     // Then verify files
     if(!((this.fileCompleteExpenses).exists()))
       (this.fileCompleteExpenses).createNewFile();
+  }
+
+  /**
+   Method returns the contents of the requested file in a Scanner object.
+
+   @param fileName This String denotes the file name to search for in the program's
+                   FileSystem
+
+   @returns A <code>Scanner</code> object if the file is found, <code>null</code>
+            otherwise
+   @throws FileNotFoundException
+           If file is not found - whether file should exist or not - user should check
+           if the file <em>should<em> have existed if this is thrown
+  */
+  public Scanner requestFileContents(String fileName) throws FileNotFoundException {
+    if(fileName.equals((this.fileCompleteExpenses).getName()))
+      return new Scanner(this.fileCompleteExpenses);
+
+    // Check files in this.filesInBudgets
+    {
+      int size = (this.filesInBudgets).size();
+      for(int index = 0; index < size; ++index) {
+        if(fileName.equals((this.filesInBudgets).get(index).getName())
+          return Scanner((this.filesInBudgets));
+      }
+    }
+
+    // Check files in this.filesInExpenses
+    {
+      int size = (this.filesInExpenses).size();
+      for(int index = 0; index < size; ++index) {
+        if(fileName.equals((this.filesInExpenses).get(index).getName())
+          return Scanner((this.filesInExpenses));
+      }
+    }
+
+    // Indicates file was not found in program's filesystem
+    return null;
   }
 
 }
