@@ -1,8 +1,6 @@
 
 package bsuclasses.budget;
 
-import java.util.Objects;
-
 /**
  This {@code BudgetCategory} object will represent a category in a budget. For example, a June budget might
  have a "FieldTrip" expense category. Or, a  "Phone Bill" or "Savings" category. A BudgetCategory object has
