@@ -49,7 +49,7 @@ public class FileManager {
 
     // Populate this.filesInExpenses
     {
-      File[] files = (this.filesInExpenses).listFiles();
+      File[] files = (this.directoryExpenses).listFiles();
       int numberOfFiles = files.length;
       for(int index = 0; index < numberOfFiles; ++index) {
         String currentFileName = files[index];
