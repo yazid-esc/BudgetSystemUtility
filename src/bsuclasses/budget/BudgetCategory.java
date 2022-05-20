@@ -56,4 +56,18 @@ public class BudgetCategory {
     String contents = String.format("%35s | %f.2", ("BudgetCategory: " + this.name), this.funds);
     return contents;
   }
+
+  public static BudgetCategory readBudgetCategoryFromString(String budgetCategoryString) {
+    String[] contents = budgetCategoryString.split(" ");
+
+    // ARRAY VALUE MAP
+    // .....................
+    // contents[0] -> name
+    // contents[1] -> funds
+    // .....................
+
+    BudgetCategory budgetCategory = new BudgetCategory(contents[0], Double.parseDouble(contents[1]));
+
+    return budgetCategory;
+  }
 }

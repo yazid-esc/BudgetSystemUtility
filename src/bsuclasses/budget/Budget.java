@@ -1,7 +1,12 @@
 
 package bsuclasses.budget;
 
+import bsuclasses.budget.BudgetCategory;
+
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.io.FileNotFoundException;
 
 import java.time.YearMonth;
 
@@ -30,13 +35,28 @@ public class Budget {
     this.startingFunds = startingFunds;
     this.yearMonth = YearMonth.now();
   }
-  
+
   /**
    @param budget the {@code Budget} object whose contents/state will be copied into
                  {@code this} budget's contents/state
   */
   public Budget(Budget budget) {
     budget.copyTo(this);
+  }
+
+  /**
+   @param startingFunds the startingFunds to set
+   @param remainingFunds the remainingFunds to set
+   @param unallocatedFunds the unallocatedFunds to set
+   @param categories the categories to set
+   @param yearMonth the yearMonth to set
+  */
+  public Budget(double startingFunds, double remainingFunds, double unallocatedFunds, ArrayList<BudgetCategories> categories, YearMonth yearMonth) {
+    this.startingFunds = startingFunds;
+    this.remainingFunds = remainingFunds;
+    this.unallocatedFunds = unallocatedFunds;
+    this.categories = categories;
+    this.yearMonth = yearMonth;
   }
 
   // GETTERS /////
@@ -93,5 +113,44 @@ public class Budget {
     contents.append("------------------------------------------------------------------------------------\n");
 
     return contents.toString();
+  }
+
+  public String toFileString() {
+
+  }
+
+  /**
+   This method reads from a file passed as parameter and creates {@code Budget}
+   object based off of data in file
+   The file is assummed to be formatted correctly - user must be careful what file
+   is passed into method
+
+   @param budgetFile the file containing the data from which a {@code Budget} object
+                     can be created
+
+   @return a {@code Budget} object whose state was derived from the file passed
+                            as a parameter
+  */
+  public static Budget readBudgetFromFile(File budgetFile) throws FileNotFoundException {
+    Scanner scanner_budgetFile = new Scanner(budgetFile);
+
+    YearMonth yearMonth = YearMonth.parse(scanner_budgetFile.nextLine());
+    double startingFunds = Double.parseDouble(scanner_budgetFile.nextLine());
+    double remainingFunds = Double.parseDouble(scanner_budgetFile.nextLine());
+    double unallocatedFunds = Double.parseDouble(scanner_budgetFile.nextLine());
+    ArrayList<BudgetCategories> categories = new ArrayList<BudgetCategory>();
+    // READ "CATEGORIES-START" line that indicates BudgetCategory data follows afterwards
+    scanner_budgetFile.nextLine();
+
+    String nextLine = scanner_budgetFile.nextLine();
+    while(!(nextLine.equals("CATEGORIES-END"))) {
+      (categories).add(BudgetCategory.readBudgetCategoryFromString(nextLine));
+      nextLine = scanner_budgetFile.nextLine();
+    }
+
+    // FINISH HERE
+    Budget budgetToReturn = new Budget(startingFunds, remainingFunds, unalloctedFunds, categories, yearMonth);
+
+    return budgetToReturn;
   }
 }
