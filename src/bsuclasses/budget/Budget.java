@@ -116,7 +116,24 @@ public class Budget {
   }
 
   public String toFileString() {
+    StringBuilder contents = new StringBuilder();
 
+    contents.append(yearMonth + "\n");
+    contents.append(startinfFunds + "\n");
+    contents.append(remainigFunds + "\n");
+    contents.append(unallocatedFunds + "\n");
+    contents.append("CATEGORIES-START\n");
+
+    // Add all categories in this budget to string contents
+    {
+      int categoriesSize = (this.size).size();
+      for(int index = 0; index < categoriesSize; ++index)
+        contents.append((this.categories).toFileString());
+    }
+
+    contents.append("CATEGORIES-END\n");
+
+    return contents.toString();
   }
 
   /**

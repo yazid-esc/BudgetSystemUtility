@@ -70,4 +70,8 @@ public class BudgetCategory {
 
     return budgetCategory;
   }
+
+  public String toFileString() {
+    return  (this.name + " " + this.funds + "\n");
+  }
 }
