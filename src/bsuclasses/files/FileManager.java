@@ -62,6 +62,17 @@ public class FileManager {
     }
   }
 
+  // CLONE ACCESSORS
+  public ArrayList<File> getFilesInBudgetsClone() {
+    return (ArrayList<File>)((this.filesInBudgets).clone());
+  }
+
+  public ArrayList<File> getFilesInExpensesClone() {
+    return (ArrayList<File>)((this.filesInExpenses).clone());
+  }
+
+  // OTHER
+
   /**
    Makes sure that FileSystem directories and files necessary for program operations
    exist - creates them if something is missing and doesn't exist
