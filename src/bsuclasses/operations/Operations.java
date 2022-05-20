@@ -62,5 +62,23 @@ public class Operations {
 
   }
 
+  // No constructors
 
+  // CLONE ACCESSORS /////
+
+  public ArrayList<Budgets> getBudgetsClone() {
+    return (ArrayList<Budgets>)((this.budgets).clone());
+  }
+
+  // ACCESSORS
+  public YearMonth getNow() {
+    return this.now;
+  }
+
+  public boolean getBudgetInitializedForThisMonth() {
+    return this.budgetInitializedForThisMonth;
+  }
+
+  // Do not return file manager - file manager operations should be carried out
+  // on behalf of this Operations object
 }
