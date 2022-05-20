@@ -59,7 +59,7 @@ public class Budget {
     this.yearMonth = yearMonth;
   }
 
-  // GETTERS /////
+  // ACCESSORS /////
   /**
    @return the starting funds of this budget
   */
@@ -79,6 +79,10 @@ public class Budget {
   */
   public double getUnallocatedFunds() {
     return this.unallocatedFunds;
+  }
+
+  public YearMonth getYearMonth() {
+    return this.yearMonth;
   }
 
   // OTHER /////
