@@ -1,4 +1,6 @@
 
+
+
 import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -121,4 +123,62 @@ public class FileManager {
     return null;
   }
 
+  /**
+   Writes contents to a file with the specified filename - the behavior of this writing operation
+   can be modified by the append parameter
+
+   @param fileName the name of the file to write to that will be searched for
+
+   @param contents the contents to write to the file
+
+   @param append boolean value that specifies wheter to append or overwrite when wrinting contents
+                 {@code true} means contents should be appended to file
+                 {@code false} means contents should overwrite the file
+
+   @return {@code true} if writing was successful, {@code false} otherwise (can be due to file not found)
+  */
+  public boolean writeToFile(String fileName, String contents, boolean append) throws IOException{
+    FileWriter fw_file;
+    booelean fileFound = false;
+
+    if(fileName.equals((this.fileCompleteExpenses).getName())){
+      fw_file = new FileWriter(this.fileCompleteExpenses, append);
+      fileFound = true;
+    }
+
+    // Check files in this.filesInBudgets
+    filesInBudgets_check:
+    {
+      int size = (this.filesInBudgets).size();
+      for(int index = 0; index < size; ++index) {
+        if(fileName.equals((this.filesInBudgets).get(index).getName()) {
+          fw_file = new FileWriter((this.filesInBudgets).get(index), append);
+          fileFound = true;
+          break filesInBudgets_check;
+        }
+      }
+    }
+
+    // Check files in this.filesInExpenses
+    filesInExpenses_check:
+    {
+      int size = (this.filesInExpenses).size();
+      for(int index = 0; index < size; ++index) {
+        if(fileName.equals((this.filesInExpenses).get(index).getName()) {
+          fileFound = true;
+          fw_file = new FileWriter((this.filesInExpenses).get(index), append);
+          break filesInExpenses_check;
+        }
+      }
+    }
+
+    // Check if file was found... if not, then throw a FileNotFoundException
+    if(!fileFound)
+      return false;
+
+    fw_file.write(contents);
+    fw_file.close();
+
+    return true;
+  }
 }
