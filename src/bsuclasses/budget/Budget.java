@@ -33,6 +33,9 @@ public class Budget {
   */
   public Budget(double startingFunds) {
     this.startingFunds = startingFunds;
+    this.remainingFunds = startingFunds;
+    this.unallocatedFunds = startingFunds;
+    
     this.yearMonth = YearMonth.now();
   }
 
