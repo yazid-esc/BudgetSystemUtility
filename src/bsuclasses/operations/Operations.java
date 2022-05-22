@@ -29,7 +29,8 @@ public class Operations {
   private FileManager fileManager;
   private ArrayList<Budgets> budgets;
   private YearMonth now;
-  boolean budgetInitializedForThisMonth;
+  private boolean budgetInitializedForThisMonth;
+  private Budget currentBudget;
 
   // INITIALIZATION BLOCK /////
   {
@@ -45,21 +46,24 @@ public class Operations {
         (this.budgets).add(Budgets.readBudgetFromFile(filesInBudgets.get(index)));
     }
 
-    // Initialize this.budgetInitializedForThisMonth
+    // Initialize this.budgetInitializedForThisMonth and this.currentBudget
     //
     // If this.budgets contains a budget with a YearMonth object that matches this.now
     // then the budget for this month is considered initialized
+    //
+    // If this.budget contains a budget for this month, initialize this.currentBudget
+    // to that budget
+
     {
       int size = (this.budgets).size();
       for(int index = 0; index < size; ++index) {
         if((this.now).equals((this.budgets).get(index).getYerMonth())) {
           this.budgetInitializedForThisMonth = true;
+          this.currentBudget = (this.budgets).get(index);
           break;
         }
       }
     }
-
-
   }
 
   // No constructors
@@ -81,4 +85,61 @@ public class Operations {
 
   // Do not return file manager - file manager operations should be carried out
   // on behalf of this Operations object
+
+  // OTHER /////
+
+  /**
+   Defines a {@code Budget} for this current month if one is not already initialized.
+  */
+  public boolean defineNewBudget(double startingFunds) {
+    // Check if current month already has a budget
+    if(this.budgetInitializedForThisMonth)
+      return false;
+
+    Budget newBudget = new Budget(startingFunds);
+    try {
+      (this.fileManager).newBudgetFile(newBudget.getYearMonth());
+    } catch(Exception e) {
+      System.out.println(e.getMessage() + "\n\n");
+      e.printStackTrace();
+
+      System.out.println("File " + newBudget.getYearMonth() + ".txt should not exist, but it does - FATAL");
+      System.out.println("")
+      System.exit(0);
+    } catch(IOException ioe) {
+      System.out.println(ioe.getMessage() + "\n\n");
+      ioe.printStackTrace();
+
+      System.out.println("\n\nSomething went wrong when creating file for new budget...");
+      System.out.println("Aborting attempt....\n\n");
+      return false;
+    }
+
+    // Add newBudget to program's filesystem
+    try {
+      (this.fileManager).writeToFile(newBudget.getYearMonth() + ".txt", newBudget.toFileString(), false);
+    } catch(IOException ioe) {
+      System.out.println(ioe.getMessage() + "\n\n");
+      ioe.printStackTrace();
+
+      System.out.println("Something went wrong when writing to file" + newBudget.getYearMonth() + ".txt....");
+      System.out.println("Aborting process.....");
+      return false;
+    }
+
+
+    // Add newBudget to ArrayList budgets
+    (this.budgets).add(newBudget);
+
+    // Update this.currentBudget to reference budget in this.budgets corresponding to
+    // this month
+    int indexOfLastBudget = (this.budgets).size() - 1
+    (this.currentBudget) = (this.budgets).get(indexOfLastBudget);
+
+    // Update to reflect existing budget for current month
+    this.budgetInitializedForThisMonth = true;
+    return true;
+  }
+
+
 }

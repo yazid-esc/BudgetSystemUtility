@@ -192,4 +192,29 @@ public class FileManager {
 
     return true;
   }
+
+  public boolean newBudgetFile(YearMonth yearMonth) throws IOException {
+    String fileName = yearMonth.toString() + ".txt";
+    File newBudgetFile = new File(this.directoryBudgets, fileName);
+
+    // Search if File newBudgetFile already exists (a.k.a search this.filesInBudgets)
+    boolean fileExists = false;
+
+    search_for_file:
+    {
+      int size = (this.filesInBudgets).size();
+      for(int index = 0; index < size; ++index) {
+        if(fileName.equals((this.filesInBudgets).get(index).getName())) {
+          fileExists = true;
+          break search_for_file;
+        }
+      }
+    }
+
+    if(fileExists)
+      throw new Exception("Budget for current month already exists - file " + fileName + " exists");
+
+
+    newBudgetFile.createNewFile();
+  }
 }
