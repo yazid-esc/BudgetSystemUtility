@@ -42,8 +42,17 @@ public class Operations {
       ArrayList<File> filesInBudgets = (this.fileManager).getFilesInBudgetsClone();
       int size = filesInBudgets.size();
 
-      for(int index = 0; index < size; ++index)
-        (this.budgets).add(Budget.readBudgetFromFile(filesInBudgets.get(index)));
+      for(int index = 0; index < size; ++index) {
+        try {
+          (this.budgets).add(Budget.readBudgetFromFile(filesInBudgets.get(index)));
+        } catch(FileNotFoundException fnfe) {
+          System.out.println("Files that were verified to exist did not exist for unknown reasons - FATAL");
+          System.out.println("\n\n" + fnfe.getMessage() + "\n\n");
+
+          fnfe.printStackTrace();
+          System.exit(1);
+        }
+      }
     }
 
     // Initialize this.budgetInitializedForThisMonth and this.currentBudget
