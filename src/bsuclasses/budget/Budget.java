@@ -35,7 +35,7 @@ public class Budget {
     this.startingFunds = startingFunds;
     this.remainingFunds = startingFunds;
     this.unallocatedFunds = startingFunds;
-    
+
     this.yearMonth = YearMonth.now();
   }
 
@@ -176,5 +176,27 @@ public class Budget {
     Budget budgetToReturn = new Budget(startingFunds, remainingFunds, unalloctedFunds, categories, yearMonth);
 
     return budgetToReturn;
+  }
+
+  // TODO: Javadoc
+  public void addCategory(BudgetCategory category) throws Exception {
+    // Check for same name - if same name, then throw error
+    for(BudgetCategory current : this.categories) {
+      String parameterName = category.getName();
+      String currentName = current.getName();
+
+      if(parameterName.equalsIgnoreCase(currentName))
+        throw new Exception("Category " + parameterName + " already exists");
+    }
+
+    double categoryFunds = category.getFunds();
+
+    if(categoryFunds > this.unallocatedFunds) {
+      throw new Exception("Unsufficient funds to support category amount of " + categoryFunds);
+    }
+
+    // Add category to budget
+    this.unallocatedFunds -= categoryFunds;
+    (this.categories).add(category);
   }
 }
