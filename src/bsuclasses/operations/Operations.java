@@ -143,6 +143,12 @@ public class Operations {
 
   // TODO: Javadoc
   public void addCategory(BudgetCategory category) {
+    // Make sure budget for current month is defined
+    if(!(this.budgetInitializedForThisMonth)) {
+      System.out.println("There exists no budget for this current month");
+      return;
+    }
+
     try {
       (this.currentBudget).addCategory(category);
     } catch(Exception e) {
@@ -156,6 +162,12 @@ public class Operations {
 
   // TODO: Javadoc
   public void removeCategory(String categoryName) {
+    // Make sure budget for current month is defined
+    if(!(this.budgetInitializedForThisMonth)) {
+      System.out.println("There exists no budget for this current month");
+      return;
+    }
+
     try {
       (this.currentBudget).removeCategory(categoryName);
     } catch(Exception e) {
