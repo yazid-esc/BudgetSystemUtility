@@ -108,13 +108,6 @@ public class Operations {
     Budget newBudget = new Budget(startingFunds);
     try {
       (this.fileManager).newBudgetFile(newBudget.getYearMonth());
-    } catch(Exception e) {
-      System.out.println(e.getMessage() + "\n\n");
-      e.printStackTrace();
-
-      System.out.println("File " + newBudget.getYearMonth() + ".txt should not exist, but it does - FATAL");
-      System.out.println("");
-      System.exit(0);
     } catch(IOException ioe) {
       System.out.println(ioe.getMessage() + "\n\n");
       ioe.printStackTrace();
@@ -122,6 +115,13 @@ public class Operations {
       System.out.println("\n\nSomething went wrong when creating file for new budget...");
       System.out.println("Aborting attempt....\n\n");
       return false;
+    } catch(Exception e) {
+      System.out.println(e.getMessage() + "\n\n");
+      e.printStackTrace();
+
+      System.out.println("File " + newBudget.getYearMonth() + ".txt should not exist, but it does - FATAL");
+      System.out.println("");
+      System.exit(0);
     }
 
     // Add newBudget to program's filesystem
