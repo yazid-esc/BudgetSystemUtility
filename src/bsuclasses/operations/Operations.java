@@ -39,7 +39,7 @@ public class Operations {
 
     // Verify necessary files and directories needed for proper program behavior
     try {
-      (this.fileManager).verifiyFileSystem();
+      (this.fileManager).verifyFileSystem();
     } catch(IOException ioe) {
       System.out.println("IOExceptoin happend when verifying program's filesystem - FATAL\n\n");
       System.out.println(ioe.getMessage() + "\n");
