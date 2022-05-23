@@ -27,8 +27,8 @@ public class Operations {
 
   // ATTRIBUTES /////
   private FileManager fileManager;
-  private ArrayList<Budget> budgets;
   private YearMonth now;
+  private ArrayList<Budget> budgets;
   private boolean budgetInitializedForThisMonth;
   private Budget currentBudget;
 
@@ -36,6 +36,18 @@ public class Operations {
   {
     this.fileManager = new FileManager();
     this.now = YearMonth.now();
+
+    // Verify necessary files and directories needed for proper program behavior
+    try {
+      (this.fileManager).verfiyFileSystem();
+    } catch(IOException ioe) {
+      System.out.println("IOExceptoin happend when verifying program's filesystem - FATAL\n\n");
+      System.out.println(ioe.getMessage() + "\n");
+      ioe.printStackTrace();
+
+      System.out.println("This error is FATAL - program must terminate");
+      System.exit(0);
+    }
 
     // Initalize this.budgets
     {
@@ -73,7 +85,7 @@ public class Operations {
         }
       }
     }
-  }
+  } // END INITALIZATION BLOCK
 
   // No constructors
 
