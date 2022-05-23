@@ -4,8 +4,12 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
+import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.time.YearMonth;
 
 
 /**
@@ -52,7 +56,7 @@ public class FileManager {
       File[] files = (this.directoryExpenses).listFiles();
       int numberOfFiles = files.length;
       for(int index = 0; index < numberOfFiles; ++index) {
-        String currentFileName = files[index];
+        String currentFileName = files[index].getName();
         if(currentFileName.equals("completeexpenses.txt"))
           continue;
 
@@ -116,8 +120,8 @@ public class FileManager {
     {
       int size = (this.filesInBudgets).size();
       for(int index = 0; index < size; ++index) {
-        if(fileName.equals((this.filesInBudgets).get(index).getName())
-          return Scanner((this.filesInBudgets));
+        if(fileName.equals((this.filesInBudgets).get(index).getName()))
+          return new Scanner((this.filesInBudgets).get(index));
       }
     }
 
@@ -125,8 +129,8 @@ public class FileManager {
     {
       int size = (this.filesInExpenses).size();
       for(int index = 0; index < size; ++index) {
-        if(fileName.equals((this.filesInExpenses).get(index).getName())
-          return Scanner((this.filesInExpenses));
+        if(fileName.equals((this.filesInExpenses).get(index).getName()))
+          return new Scanner((this.filesInExpenses).get(index));
       }
     }
 
@@ -149,8 +153,8 @@ public class FileManager {
    @return {@code true} if writing was successful, {@code false} otherwise (can be due to file not found)
   */
   public boolean writeToFile(String fileName, String contents, boolean append) throws IOException{
-    FileWriter fw_file;
-    booelean fileFound = false;
+    FileWriter fw_file = null;
+    boolean fileFound = false;
 
     if(fileName.equals((this.fileCompleteExpenses).getName())){
       fw_file = new FileWriter(this.fileCompleteExpenses, append);
@@ -162,7 +166,7 @@ public class FileManager {
     {
       int size = (this.filesInBudgets).size();
       for(int index = 0; index < size; ++index) {
-        if(fileName.equals((this.filesInBudgets).get(index).getName()) {
+        if(fileName.equals((this.filesInBudgets).get(index).getName())) {
           fw_file = new FileWriter((this.filesInBudgets).get(index), append);
           fileFound = true;
           break filesInBudgets_check;
@@ -175,7 +179,7 @@ public class FileManager {
     {
       int size = (this.filesInExpenses).size();
       for(int index = 0; index < size; ++index) {
-        if(fileName.equals((this.filesInExpenses).get(index).getName()) {
+        if(fileName.equals((this.filesInExpenses).get(index).getName())) {
           fileFound = true;
           fw_file = new FileWriter((this.filesInExpenses).get(index), append);
           break filesInExpenses_check;
@@ -193,7 +197,7 @@ public class FileManager {
     return true;
   }
 
-  public boolean newBudgetFile(YearMonth yearMonth) throws IOException {
+  public void newBudgetFile(YearMonth yearMonth) throws IOException, Exception{
     String fileName = yearMonth.toString() + ".txt";
     File newBudgetFile = new File(this.directoryBudgets, fileName);
 

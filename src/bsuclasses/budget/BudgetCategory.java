@@ -39,14 +39,14 @@ public class BudgetCategory {
   /**
    @return the name
   */
-  public void getName() {
+  public String getName() {
     return this.name;
   }
 
   /**
    @return the funds
   */
-  public void getFunds() {
+  public double getFunds() {
     return this.funds;
   }
 

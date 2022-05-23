@@ -3,7 +3,6 @@ package bsuclasses.budget;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.
 
 import java.time.LocalDateTime;
 
@@ -39,7 +38,7 @@ public class Expense {
    @param cost the cost of the expense
   */
   public Expense(String name, String description, double cost, LocalDateTime localDateTime) {
-    this.lname = name;
+    this.name = name;
     this.description = description;
     this.cost = cost;
     this.localDateTime = localDateTime;
@@ -79,7 +78,7 @@ public class Expense {
   /**
    @return the cost of the object
   */
-  public String getCost() {
+  public double getCost() {
     return this.cost;
   }
 
@@ -138,7 +137,7 @@ public class Expense {
                    object.
   */
   public static Expense readExpense(String contents) {
-    String expenseData = contents.split("#");
+    String[] expenseData = contents.split("#");
 
     // Array data mapping
     //  expenseData[0] --> name

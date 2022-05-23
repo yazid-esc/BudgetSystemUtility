@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.io.FileNotFoundException;
+import java.io.File;
 
 import java.time.YearMonth;
 
@@ -54,7 +55,7 @@ public class Budget {
    @param categories the categories to set
    @param yearMonth the yearMonth to set
   */
-  public Budget(double startingFunds, double remainingFunds, double unallocatedFunds, ArrayList<BudgetCategories> categories, YearMonth yearMonth) {
+  public Budget(double startingFunds, double remainingFunds, double unallocatedFunds, ArrayList<BudgetCategory> categories, YearMonth yearMonth) {
     this.startingFunds = startingFunds;
     this.remainingFunds = remainingFunds;
     this.unallocatedFunds = unallocatedFunds;
@@ -107,13 +108,13 @@ public class Budget {
     contents.append("------------------------------------------------------------------------------------\n");
     contents.append("\t" + this.yearMonth + "\n");
     contents.append("------------------------------------------------------------------------------------\n");
-    contents.append(String.format("%20s\n", "Starting Funds: " + this.startinfFunds));
+    contents.append(String.format("%20s\n", "Starting Funds: " + this.startingFunds));
     contents.append(String.format("%20s\n", "Remaining Funds: " + this.remainingFunds));
     contents.append(String.format("%20s\n", "Unallocated Funds: " + this.unallocatedFunds));
     contents.append("\n");
 
     int numberOfBudgetCategories = (this.categories).size();
-    for(int index = 0; i < numberOfBudgetCategories; ++index)
+    for(int index = 0; index < numberOfBudgetCategories; ++index)
       contents.append((this.categories).get(index).toString() + "\n");
 
     contents.append("\n\n");
@@ -125,17 +126,17 @@ public class Budget {
   public String toFileString() {
     StringBuilder contents = new StringBuilder();
 
-    contents.append(yearMonth + "\n");
-    contents.append(startinfFunds + "\n");
-    contents.append(remainigFunds + "\n");
-    contents.append(unallocatedFunds + "\n");
+    contents.append(this.yearMonth + "\n");
+    contents.append(this.startingFunds + "\n");
+    contents.append(this.remainingFunds + "\n");
+    contents.append(this.unallocatedFunds + "\n");
     contents.append("CATEGORIES-START\n");
 
     // Add all categories in this budget to string contents
     {
-      int categoriesSize = (this.size).size();
+      int categoriesSize = (this.categories).size();
       for(int index = 0; index < categoriesSize; ++index)
-        contents.append((this.categories).toFileString());
+        contents.append((this.categories).get(index).toFileString());
     }
 
     contents.append("CATEGORIES-END\n");
@@ -162,7 +163,7 @@ public class Budget {
     double startingFunds = Double.parseDouble(scanner_budgetFile.nextLine());
     double remainingFunds = Double.parseDouble(scanner_budgetFile.nextLine());
     double unallocatedFunds = Double.parseDouble(scanner_budgetFile.nextLine());
-    ArrayList<BudgetCategories> categories = new ArrayList<BudgetCategory>();
+    ArrayList<BudgetCategory> categories = new ArrayList<BudgetCategory>();
     // READ "CATEGORIES-START" line that indicates BudgetCategory data follows afterwards
     scanner_budgetFile.nextLine();
 
@@ -173,7 +174,7 @@ public class Budget {
     }
 
 
-    Budget budgetToReturn = new Budget(startingFunds, remainingFunds, unalloctedFunds, categories, yearMonth);
+    Budget budgetToReturn = new Budget(startingFunds, remainingFunds, unallocatedFunds, categories, yearMonth);
 
     return budgetToReturn;
   }
