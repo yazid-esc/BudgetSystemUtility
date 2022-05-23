@@ -141,6 +141,7 @@ public class Operations {
     return true;
   }
 
+  // TODO: Javadoc
   public void addCategory(BudgetCategory category) {
     try {
       (this.currentBudget).addCategory(category);
@@ -153,6 +154,7 @@ public class Operations {
     System.out.println("Budget category:\n" + category + "\n\nhas been successfully added to this month's budget");
   }
 
+  // TODO: Javadoc
   public void removeCategory(String categoryName) {
     try {
       (this.currentBudget).removeCategory(categoryName);

@@ -71,6 +71,7 @@ public class BudgetCategory {
     return budgetCategory;
   }
 
+  // TODO: Javadoc
   public String toFileString() {
     return  (this.name + " " + this.funds + "\n");
   }

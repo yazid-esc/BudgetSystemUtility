@@ -172,7 +172,7 @@ public class Budget {
       nextLine = scanner_budgetFile.nextLine();
     }
 
-    // FINISH HERE
+
     Budget budgetToReturn = new Budget(startingFunds, remainingFunds, unalloctedFunds, categories, yearMonth);
 
     return budgetToReturn;
@@ -200,6 +200,7 @@ public class Budget {
     (this.categories).add(category);
   }
 
+  // TODO: Javadoc
   public boolean removeCategory(String categoryName) {
     // Find category in this.categories whose name matches string categoryName
     BudgetCategory categoryToRemove = null;
