@@ -199,4 +199,29 @@ public class Budget {
     this.unallocatedFunds -= categoryFunds;
     (this.categories).add(category);
   }
+
+  public boolean removeCategory(String categoryName) {
+    // Find category in this.categories whose name matches string categoryName
+    BudgetCategory categoryToRemove = null;
+    for(BudgetCategory current : this.categories) {
+      String currentName = current.getName();
+
+      if(categoryName.equalsIgnoreCase(currentName)) {
+        categoryToRemove = current;
+      }
+    }
+
+    // false returned if category was not found
+    if(categoryToRemove == null) {
+      return false;
+    }
+
+    double categoryToRemoveFunds = categoryToRemove.getFunds();
+    (this.categories).remove(categoryToRemove);
+
+    // Funds from categoryToRemove are no longer considered allocated
+    this.unallocatedFunds += categoryToRemoveFunds;
+
+    return true; // success
+  }
 }

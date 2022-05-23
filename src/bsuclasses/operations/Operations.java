@@ -152,4 +152,16 @@ public class Operations {
 
     System.out.println("Budget category:\n" + category + "\n\nhas been successfully added to this month's budget");
   }
+
+  public void removeCategory(String categoryName) {
+    try {
+      (this.currentBudget).removeCategory(categoryName);
+    } catch(Exception e) {
+      System.out.println("Error removing category:\n\n" + e.getMessage() + "\n\n");
+
+      return;
+    }
+
+    System.out.println("Budget category:\n " + categoryName + "\n\nhas been successfully added to this month's budget");
+  }
 }
