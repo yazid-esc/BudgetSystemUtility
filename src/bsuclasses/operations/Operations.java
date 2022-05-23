@@ -2,12 +2,12 @@
 package bsuclases.operations;
 
 import bsuclasses.budget.*;
-import bsuclases.files.*;
+import bsuclasses.files.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFounException;
+import java.io.FileNotFoundException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class Operations {
 
   // ATTRIBUTES /////
   private FileManager fileManager;
-  private ArrayList<Budgets> budgets;
+  private ArrayList<Budget> budgets;
   private YearMonth now;
   private boolean budgetInitializedForThisMonth;
   private Budget currentBudget;
@@ -40,10 +40,10 @@ public class Operations {
     // Initalize this.budgets
     {
       ArrayList<File> filesInBudgets = (this.fileManager).getFilesInBudgetsClone();
-      int size = filesInBudget.size();
+      int size = filesInBudgets.size();
 
-      for(int index = 0; index < size; +index)
-        (this.budgets).add(Budgets.readBudgetFromFile(filesInBudgets.get(index)));
+      for(int index = 0; index < size; ++index)
+        (this.budgets).add(Budget.readBudgetFromFile(filesInBudgets.get(index)));
     }
 
     // Initialize this.budgetInitializedForThisMonth and this.currentBudget
@@ -57,7 +57,7 @@ public class Operations {
     {
       int size = (this.budgets).size();
       for(int index = 0; index < size; ++index) {
-        if((this.now).equals((this.budgets).get(index).getYerMonth())) {
+        if((this.now).equals((this.budgets).get(index).getYearMonth())) {
           this.budgetInitializedForThisMonth = true;
           this.currentBudget = (this.budgets).get(index);
           break;
@@ -70,8 +70,8 @@ public class Operations {
 
   // CLONE ACCESSORS /////
 
-  public ArrayList<Budgets> getBudgetsClone() {
-    return (ArrayList<Budgets>)((this.budgets).clone());
+  public ArrayList<Budget> getBudgetsClone() {
+    return (ArrayList<Budget>)((this.budgets).clone());
   }
 
   // ACCESSORS
@@ -104,7 +104,7 @@ public class Operations {
       e.printStackTrace();
 
       System.out.println("File " + newBudget.getYearMonth() + ".txt should not exist, but it does - FATAL");
-      System.out.println("")
+      System.out.println("");
       System.exit(0);
     } catch(IOException ioe) {
       System.out.println(ioe.getMessage() + "\n\n");
@@ -133,7 +133,7 @@ public class Operations {
 
     // Update this.currentBudget to reference budget in this.budgets corresponding to
     // this month
-    int indexOfLastBudget = (this.budgets).size() - 1
+    int indexOfLastBudget = (this.budgets).size() - 1;
     (this.currentBudget) = (this.budgets).get(indexOfLastBudget);
 
     // Update to reflect existing budget for current month
