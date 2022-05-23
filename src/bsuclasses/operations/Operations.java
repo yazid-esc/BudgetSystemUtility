@@ -141,5 +141,15 @@ public class Operations {
     return true;
   }
 
+  public void addCategory(BudgetCategory category) {
+    try {
+      (this.currentBudget).addCategory(category);
+    } catch(Exception e) {
+      System.out.println("Error adding category:\n\n" + e.getMessage() + "\n\n");
 
+      return;
+    }
+
+    System.out.println("Budget category:\n" + category + "\n\nhas been successfully added to this month's budget");
+  }
 }
